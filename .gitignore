@@ -9,6 +9,9 @@ human-browser-*
 actions.log
 *.png
 *.log
+# ...except the designed brand gallery:
+!docs/assets/*.png
+!docs/assets/*.jpg
 
 # Browser profiles and test leftovers (private!)
 dbgtest*/
