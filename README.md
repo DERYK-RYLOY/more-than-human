@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo-top.png" height="90" alt="MORE THAN HUMAN — fingerprint eye mark">
+  <img src="docs/assets/logo-top.png" width="100%" alt="MORE THAN HUMAN — fingerprint eye mark">
 </p>
 
 <h1 align="center">MORE THAN HUMAN</h1>
@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/Go-1.23-00ADD8?logo=go&logoColor=white" alt="Go 1.23">
   <img src="https://img.shields.io/badge/platform-Windows_%7C_macOS_%7C_Linux-00E5FF" alt="Windows macOS Linux">
   <img src="https://img.shields.io/badge/license-Apache--2.0-00E5FF" alt="Apache 2.0">
-  <img src="https://img.shields.io/badge/recorded-59_WPM_at_100%25-00E5FF" alt="59 WPM at 100 percent accuracy">
+  <img src="https://img.shields.io/badge/accuracy-100%25_on_live_tests-00E5FF" alt="100 percent accuracy">
 </p>
 
 ![MORE THAN HUMAN — human identity meets machine vision](docs/assets/banner-hero.png)
@@ -37,7 +37,7 @@ No Python. No Node. No drivers. No CGO. Just Go.
 | Works without drivers / runtimes | No — drivers, Node, browsers to manage | **Single ~12 MB binary** |
 | Verifies its own work | Screenshots you must eyeball | **Reads page state from the DOM: cursor + error counts** |
 | Recovers from failure | Your code's problem | **Self-heal: Redo + retry automatically** |
-| Recorded proof | Benchmarks on toy pages | **59 WPM at 100% on a live 1,220-char test; 49 WPM on a 5-min 10-key test** |
+| Recorded proof | Benchmarks on toy pages | **100% accuracy on live 1,200+ character tests** |
 
 ![MORE THAN HUMAN wordmark](docs/assets/banner-light.jpg)
 
