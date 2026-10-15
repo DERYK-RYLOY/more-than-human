@@ -555,6 +555,74 @@ func RedoTest(c *Client) error {
 	return nil
 }
 
+// BenchReport holds rerunnable live measurements (no estimates, no vibes).
+type BenchReport struct {
+	PingMs    float64 `json:"pingMsAvg"`
+	KeysPerS  float64 `json:"keysPerSec"`
+	KeysMs    int64   `json:"keysMs"`
+	Keys      int     `json:"keys"`
+	Letters   int     `json:"letters"`
+	ExtractMs int64   `json:"extractMs"`
+	ShotMs    int64   `json:"shotMs"`
+	TabsMs    int64   `json:"tabsMs"`
+}
+
+// BenchRun measures real CDP round-trips against a live tab. Rerun it
+// yourself: launch --headless, load any page, bench --port. Same method
+// every time, so the numbers in BENCHMARKS.md are checkable, not marketing.
+func BenchRun(port int, tab string, keys int) (BenchReport, error) {
+	var r BenchReport
+	if keys <= 0 {
+		keys = 20
+	}
+	r.Keys = keys
+	t0 := time.Now()
+	tabs, err := ListTabs(port)
+	if err != nil {
+		return r, err
+	}
+	_ = tabs
+	r.TabsMs = time.Since(t0).Milliseconds()
+	c, err := DialTab(port, tab)
+	if err != nil {
+		return r, err
+	}
+	defer c.Close()
+	t0 = time.Now()
+	for i := 0; i < 10; i++ {
+		if _, err := c.Send("Runtime.evaluate", map[string]any{"expression": "1", "returnByValue": true}); err != nil {
+			return r, err
+		}
+	}
+	r.PingMs = float64(time.Since(t0).Microseconds()) / 10 / 1000
+	t0 = time.Now()
+	for i := 0; i < keys; i++ {
+		if _, err := c.Send("Input.dispatchKeyEvent", map[string]any{"type": "keyDown", "key": "a", "code": "KeyA", "windowsVirtualKeyCode": 65}); err != nil {
+			return r, err
+		}
+		if _, err := c.Send("Input.dispatchKeyEvent", map[string]any{"type": "keyUp", "key": "a", "code": "KeyA"}); err != nil {
+			return r, err
+		}
+	}
+	r.KeysMs = time.Since(t0).Milliseconds()
+	if r.KeysMs > 0 {
+		r.KeysPerS = float64(keys) * 1000 / float64(r.KeysMs)
+	}
+	t0 = time.Now()
+	p, err := ExtractPassage(c)
+	if err != nil {
+		return r, err
+	}
+	r.ExtractMs = time.Since(t0).Milliseconds()
+	r.Letters = p.Total
+	t0 = time.Now()
+	if _, err := PageScreenshot(c, false); err != nil {
+		return r, err
+	}
+	r.ShotMs = time.Since(t0).Milliseconds()
+	return r, nil
+}
+
 // LetterState reads typing-test progress straight from the DOM.
 type LetterState struct {
 	Index  int `json:"cursor"`

@@ -159,6 +159,8 @@ func main() {
 		cmdQuit(args)
 	case "doctor":
 		cmdDoctor(args)
+	case "bench":
+		cmdBench(args)
 	case "serve":
 		cmdServe(args)
 	case "help", "-h", "--help":
@@ -219,6 +221,7 @@ HANDS (control everything like mouse+keyboard):
   adopt   --port 9223                                 gracefully migrate running Brave to debug mode
   quit    --port 9230                                 close ONLY the browser on that port (safe cleanup)
   doctor   [--repair]                                 diagnose this machine + AI self-repair playbook
+  bench    --port 9222 [--keys 20]                     measure live CDP latency (rerunnable proof)
   back|forward|reload --port 9222
   new-tab <url> --port 9222 | close --tab ID | activate --tab ID
   serve   --api 8080 --port 9222                       HTTP API for any AI agent
@@ -1303,7 +1306,27 @@ func cmdAdopt(args []string) {
 	logAction("adopt", map[string]any{"port": *port, "tabs": len(tabs)})
 }
 
-// cmdQuit closes ONLY the browser instance on the given debug port// (Browser.close). Unlike taskkill it can never touch your real browser.
+// cmdBench runs the rerunnable live benchmark (see docs/BENCHMARKS.md).
+func cmdBench(args []string) {
+	fs := flag.NewFlagSet("bench", flag.ExitOnError)
+	port := portFlag(fs)
+	tab := fs.String("tab", "", "tab id (default: active)")
+	keys := fs.Int("keys", 20, "key events to time")
+	parseAny(fs, args)
+	rep, err := BenchRun(*port, *tab, *keys)
+	if err != nil {
+		fatal(err)
+	}
+	mustJSON(map[string]any{
+		"ok": true, "pingMsAvg": rep.PingMs, "keysPerSec": rep.KeysPerS,
+		"keysMs": rep.KeysMs, "keys": rep.Keys, "letters": rep.Letters,
+		"extractMs": rep.ExtractMs, "shotMs": rep.ShotMs, "tabsMs": rep.TabsMs,
+	})
+	logAction("bench", map[string]any{"keysPerSec": rep.KeysPerS, "pingMs": rep.PingMs})
+}
+
+// cmdQuit closes ONLY the browser instance on the given debug port
+// (Browser.close). Unlike taskkill it can never touch your real browser.
 func cmdQuit(args []string) {
 	fs := flag.NewFlagSet("quit", flag.ExitOnError)
 	port := portFlag(fs)
@@ -1342,7 +1365,8 @@ func cmdDoctor(args []string) {
 	}
 }
 
-func cmdServe(args []string) {	fs := flag.NewFlagSet("serve", flag.ExitOnError)
+func cmdServe(args []string) {
+	fs := flag.NewFlagSet("serve", flag.ExitOnError)
 	api := fs.Int("api", 8080, "HTTP API port")
 	port := portFlag(fs)
 	parseAny(fs, args)

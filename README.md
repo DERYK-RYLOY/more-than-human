@@ -12,9 +12,9 @@
   <img src="https://img.shields.io/badge/accuracy-100%25_on_live_tests-00E5FF" alt="100 percent accuracy">
 </p>
 
-![MORE THAN HUMAN — human identity meets machine vision](docs/assets/banner-hero.png)
-
-<img align="right" width="220" src="docs/assets/icon-right.png" alt="Browser window with fingerprint eye and cursor">
+<p align="center">
+  <img src="docs/assets/banner-hero.png" width="100%" alt="MORE THAN HUMAN — human identity meets machine vision">
+</p>
 
 ## Why this exists
 
@@ -38,10 +38,9 @@ No Python. No Node. No drivers. No CGO. Just Go.
 | Verifies its own work | Screenshots you must eyeball | **Reads page state from the DOM: cursor + error counts** |
 | Recovers from failure | Your code's problem | **Self-heal: Redo + retry automatically** |
 | Recorded proof | Benchmarks on toy pages | **100% accuracy on live 1,200+ character tests** |
+| Numbers you can check | Marketing charts | **[BENCHMARKS.md](docs/BENCHMARKS.md): 248 keys/sec measured, rerun in 30s** |
 
-![MORE THAN HUMAN wordmark](docs/assets/banner-light.jpg)
-
-## Sectors
+![SEE · PRESS · HIDDEN elements · OS CONTROL · AUTOPILOT](docs/assets/banner-features.jpg)
 
 **SEE everything**
 ```powershell
