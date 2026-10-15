@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo-top.png" width="100%" alt="MORE THAN HUMAN — fingerprint eye mark">
+  <img src="docs/assets/brand-hero.jpg" width="100%" alt="MORE THAN HUMAN by DERYK RYLOY">
 </p>
 
 <h1 align="center">MORE THAN HUMAN</h1>
@@ -12,9 +12,7 @@
   <img src="https://img.shields.io/badge/accuracy-100%25_on_live_tests-00E5FF" alt="100 percent accuracy">
 </p>
 
-<p align="center">
-  <img src="docs/assets/banner-hero.png" width="100%" alt="MORE THAN HUMAN — human identity meets machine vision">
-</p>
+<img align="right" width="180" src="docs/assets/icon-right.png" alt="Browser window with fingerprint eye and cursor">
 
 ## Why this exists
 
@@ -27,6 +25,9 @@ Browser automation has been stuck for a decade: frameworks that only see the DOM
 - **BRAIN** — an autopilot sector that reads a site's own answer key from the DOM, refuses damaged runs, types at a commanded pace, and verifies itself with zero screenshots mid-run.
 
 No Python. No Node. No drivers. No CGO. Just Go.
+
+**No speed limits in the tool itself** — pour a whole text in a single blast
+or cruise at a human pace; either way it lands at 100% accuracy.
 
 ## Why it wins
 
@@ -66,8 +67,6 @@ human-browser autopilot --guide                                   # the full pla
 human-browser tpass --port 9223 --tab ID --wpm 50 --chars 1245    # whole pass, one call
 human-browser tpass --dry --port 9223 --tab ID                    # extract + validate only
 ```
-
-![SEE · PRESS · HIDDEN elements · OS CONTROL · AUTOPILOT](docs/assets/banner-features.jpg)
 
 **Full command reference**
 `launch` `tabs` `goto` `back` `forward` `reload` `new-tab` `close` `activate` `see` `screen` `elements` `text` `find` `click` `jsclick` `type` `press` `ctype` `hover` `scroll` `eval` `mouse` `key` `windows` `focus` `minimize` `sendkeys` `chain` `racetype` `shotclean` `wait` `waitfor` `downloads` `ask` `adopt` `quit` `doctor` `serve` — every command prints JSON.

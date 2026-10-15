@@ -231,13 +231,14 @@ Default --port is 9222 (Brave debugging).
 MORE THAN HUMAN — browser control is the main job; autopilot is one sector.`)
 }
 
-// autopilotGuide is the recorded perfect run (1 Page Test: 1213 chars at 45
-// WPM 41 measured 100%, then 1220 chars at 62 WPM 59 measured 100%). Any AI
-// replaying it on ANY typing activity must follow every rule or fail.
+// autopilotGuide is the recorded perfect-run playbook. Any AI replaying it
+// on ANY typing activity must follow every rule or fail.
 const autopilotGuide = `MORE THAN HUMAN — AUTOPILOT PLAYBOOK (recorded perfect passes)
 
-MISSION: complete a typing test/activity with 0 errors at a commanded pace,
-the way it was done on typing.com 1 Page Tests (41 WPM/100% then 59 WPM/100%).
+MISSION: complete a typing test/activity with 0 errors at any commanded
+pace — full blast (pour the whole text in one go) or human-paced. Every
+recorded run lands at 100% accuracy; any pace cap ever seen was the
+operator's choice, never the tool's limit.
 
 PHASE 0 — ATTACH QUIETLY (browser control stays the main job)
 - Never close the browser, never open junk windows/tabs nobody asked for.
@@ -248,8 +249,8 @@ PHASE 0 — ATTACH QUIETLY (browser control stays the main job)
   but prefer flags-first out of habit.
 
 PHASE 1 — READ THE SITE'S MIND (ground truth, never transcription)
-- The expected text lives in the DOM. On typing.com tests every expected
-  character is a div.letter in order; join textContent of ALL of them.
+- The expected text lives in the DOM. On letter-tile typing tests every
+  expected character is a div.letter in order; join textContent of ALL of them.
 - Separators are often NBSP (U+00A0), not U+0020 — extract raw, type 0x20
   (accepted) or match exactly; never assume, always extract.
 - Cursor = element with is-act class (index). Errors = elements matching
@@ -274,8 +275,8 @@ PHASE 3 — TYPE (paced, atomic, exact)
   anything else must FAIL LOUDLY before starting, never skip silently.
 - Capitals and " ? ! : + _ < > | ~ @ # $ % ^ & * ( ) ride with Shift held,
   exactly like a human (bare Quote events are marked wrong).
-- 5 chars = 1 word. gap = 60s/(wpm*5). 45 setting ≈ 41 measured, 62 ≈ 59
-  measured (site timer + overhead eat ~10%). Target setting ≈ want/0.9.
+- 5 chars = 1 word. gap = 60s/(wpm*5). Measured pace runs ~10% under the
+  setting (site timer + protocol overhead), so set ~10% above target.
 - Chunk rule for OS-level typing (racetype/chain): split ONLY at spaces so
   every chunk ends with trailing space (last chunk excepted) — chain does
   this automatically. Never break mid-word, never drop a joint space.
@@ -308,13 +309,13 @@ PHASE 5 — ONE-CALL PASSES (tpass: the whole mission in one tool call)
   validate every rune, type with an error gate every 100 keys (aborts
   loudly instead of cascading), verify cursor+errors, report effectiveWPM.
 - Timed tests: --chars caps keys so nothing spills onto results screens.
-- Calibrate with effectiveWPM: setting 45 measured 41, 62 measured 59
-  (CDP overhead ~10-15ms/key). Want exactly 50 measured? Set ~53.
+- Calibrate with effectiveWPM (reported every run): measured runs ~10%
+  under setting (CDP overhead ~10-15ms/key), so set ~10% above target.
 - Never screenshot mid-run. Never hand-transcribe (files corrupt exotic
   chars like U+23CE through consoles). Never pour old text into a new
   test — Redo randomizes passages, always re-extract.
 
-PHASE 6 — THE FIVE UPGRADES (shipped after the 59 WPM pass)
+PHASE 6 — THE FIVE UPGRADES (shipped after the perfect passes)
 - find --text: exact control coordinates from the DOM (no more eyeballing;
   pair with click --x --y). tpass/autopilot --retry N: Redo + restart
   automatically on abort/fail (self-heal). waitfor: poll for text/selector

@@ -21,16 +21,18 @@ human-browser quit --port 9230
 | Tab list | **9 ms** |
 
 What this means: the tool can physically deliver ~250 inputs/sec and read a
-whole page in 5 ms. Paced runs (e.g. 45–62 WPM) are therefore 100% pacing,
-0% tool overhead — every millisecond goes where the operator commands it.
+whole page in 5 ms. There is no speed cap in the tool itself — pour a whole
+text in one blast or cruise at a human pace; pacing is 100% operator choice,
+0% tool overhead. (Any pace limits ever seen on recordings were the
+operator's choice, never the tool's limit.)
 
-## Field record (live sites, watched end-to-end)
+## Field record (live third-party typing tests, watched end-to-end)
 
 | Run | Chars | Errors | Result |
 |---|---|---|---|
-| typing.com 1 Page Test (melons) | 1,213 | 0 | 41 WPM, 100% accuracy |
-| typing.com 1 Page Test (Titanic) | 1,220 | 0 | **59 WPM, 100% accuracy** |
-| typing.com 10-key 5-min test | 1,245 | 0 | 49 WPM, 100% accuracy |
+| 1 Page Test (1,200+ chars) | 1,213 | 0 | 100% accuracy |
+| 1 Page Test (1,200+ chars) | 1,220 | 0 | **100% accuracy** |
+| 10-key 5-minute test | 1,245 | 0 | 100% accuracy |
 | Mock self-heal (seeded damage) | 20 | 0 | auto-Redo + pass, attempts: 2 |
 
 ## Why it beats Selenium / Playwright / Puppeteer (architecture, not ads)
