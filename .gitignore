@@ -1,0 +1,28 @@
+# Binaries
+human-browser.exe
+human-browser
+human-browser-*
+*.exe
+*.out
+
+# Runtime artifacts (may contain typed text / screens of YOUR session)
+actions.log
+*.png
+*.log
+
+# Browser profiles and test leftovers (private!)
+dbgtest*/
+human-browser-profile-*/
+dl-test/
+*passage*.txt
+tenkey*.txt
+code.txt
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Go build cache (never commit)
+/tmp/
