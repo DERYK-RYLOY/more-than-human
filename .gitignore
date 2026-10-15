@@ -2,6 +2,7 @@
 human-browser.exe
 human-browser
 human-browser-*
+release-*
 *.exe
 *.out
 
